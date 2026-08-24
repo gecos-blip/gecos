@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GECOS - UPTC | Grupo de Investigación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           VARIABLES Y CONFIGURACIÓN BASE
+        ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #134E5E 0%, #71B280 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           EFECTO GLASSMORPHISM
+        ========================================= */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* =========================================
+           NAVEGACIÓN
+        ========================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            z-index: 1000;
+            border-radius: 0 0 20px 20px;
+        }
+
+        nav .logo-text {
+            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #a8ff78;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #a8ff78;
+        }
+
+        /* =========================================
+           ENCABEZADO (HERO SECTION)
+        ========================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            padding-top: 100px;
+        }
+
+        .hero-logo-container {
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 15px;
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            width: 180px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Asegura que la imagen no se salga del borde circular */
+        }
+
+        .hero-logo-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: -webkit-linear-gradient(#a8ff78, #78ffd6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .slogan {
+            font-style: italic;
+            font-size: 1.5rem;
+            color: #a8ff78;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .badge-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: rgba(168, 255, 120, 0.2);
+            border: 1px solid #a8ff78;
+        }
+
+        /* =========================================
+           CONTENEDOR DE TARJETAS
+        ========================================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card h2 {
+            margin-bottom: 1.2rem;
+            font-size: 1.6rem;
+            color: #a8ff78;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p, .card ul {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            margin-bottom: 0.8rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #a8ff78;
+        }
+
+        /* =========================================
+           SECCIÓN DE EVENTOS E IMÁGENES
+        ========================================= */
+        .events-grid {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .event-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid #a8ff78;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-item h4 {
+            color: #a8ff78;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .event-item p {
+            margin-bottom: 1rem;
+        }
+
+        /* Estilo para las fotos dentro de las tarjetas de eventos */
+        .event-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover; /* Asegura que la foto no se deforme */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .event-image:hover {
+            transform: scale(1.05); /* Pequeño zoom al pasar el mouse */
+        }
+
+        /* Estilo para foto del coordinador */
+        .team-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #a8ff78;
+        }
+
+        /* =========================================
+           PIE DE PÁGINA
+        ========================================= */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-info {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="glass">
+        <div class="logo-text">GECOS</div>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#sobre-nosotros">Sobre el Grupo</a></li>
+            <li><a href="#eventos">Eventos 2024</a></li>
+            <li><a href="#objetivos">Objetivos</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="inicio">
+        <div class="hero-logo-container">
+            <img src="Logo.png" alt="Logo GECOS">
+        </div>
+        <h1>Grupo GECOS</h1>
+        <p class="slogan">"La investigación como proyecto de vida"</p>
+        <p>Grupo de Estudios en Ecología, Etología, Educación y Conservación</p>
+        <p style="font-weight: 600;">Universidad Pedagógica y Tecnológica de Colombia</p>
+        
+        <div class="badge-container">
+            <span class="badge">Acreditación Internacional 2022-2027</span>
+            <span class="badge">Alta Calidad Multicampus</span>
+            <span class="badge">UPTC - Tunja</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="sobre-nosotros" class="card glass">
+            <h2>Liderazgo y Propósito</h2>
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <img src="Director.png" alt="Rafael E. Sánchez Cuervo" class="team-image">
+                <h3 style="font-size: 1.1rem;">Rafael E. Sánchez Cuervo</h3>
+                <p style="font-size: 0.8rem; opacity: 0.8;">Coordinador del Grupo</p>
+            </div>
+            <p style="margin-bottom: 1rem;">Bajo la coordinación de Rafael E. Sánchez Cuervo, el grupo busca innovar y alcanzar la excelencia en cada proyecto de investigación desarrollado.</p>
+            <p>Contribuimos al conocimiento, manejo y conservación de la biodiversidad colombiana integrando la ciencia rigurosa con la educación ambiental para generar un impacto socioambiental positivo en la región.</p>
+        </section>
+
+        <section class="card glass">
+            <h2>Misión</h2>
+            <p>Fomentar la formación de investigadores éticos y críticos mediante proyectos de alta calidad en fauna silvestre y ecosistemas, promoviendo el desarrollo sustentable y la apropiación social del conocimiento.</p>
+            <h2 style="margin-top: 1.5rem;">Visión</h2>
+            <p>Consolidarnos como referentes nacionales e internacionales en ecología y comportamiento animal, destacando por el rigor científico y la innovación tecnológica.</p>
+        </section>
+
+        <section id="eventos" class="card glass" style="grid-column: 1 / -1;">
+            <h2>Congresos y Eventos Destacados</h2>
+            <p style="margin-bottom: 2rem;">Un vistazo a nuestra participación y trabajo de campo.</p>
+            
+            <div class="events-grid">
+                <div class="event-item">
+                    <div>
+                        <h4>Global Big Day</h4>
+                        <p>Participación activa en el monitoreo mundial de aves en Boyacá.</p>
+                    </div>
+                    <img src="Global big day.png" alt="Global Big Day" class="event-image">
+                </div>
+                
+                <div class="event-item">
+                    <div>
+                        <h4>FILBO 2024</h4>
+                        <p>Presencia y divulgación en la Feria Internacional del Libro de Bogotá.</p>
+                    </div>
+                    <img src="Filbo.png" alt="Feria del Libro" class="event-image">
+                </div>
+                
+                <div class="event-item">
+                    <div>
+                        <h4>Educación Ambiental</h4>
+                        <p>Talleres de aves para niños y participación en congresos internacionales.</p>
+                    </div>
+                    <img src="Educación ambiental.png" alt="Taller de Aves" class="event-image">
+                </div>
+                
+                <div class="event-item">
+                    <div>
+                        <h4>I Campamento Científico</h4>
+                        <p>Trabajo de campo e investigación realizado en Nuevo Colón, Boyacá.</p>
+                    </div>
+                    <img src="Campamento cientifico.png" alt="Campamento Nuevo Colón" class="event-image">
+                </div>
+            </div>
+        </section>
+
+        <section id="objetivos" class="card glass" style="grid-column: 1 / -1;">
+            <h2>Objetivos Estratégicos</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <ul>
+                    <li>Investigar patrones ecológicos y etológicos en fauna silvestre.</li>
+                    <li>Implementar estrategias de educación ambiental efectivas.</li>
+                </ul>
+                <ul>
+                    <li>Articular academia, comunidades y entes gubernamentales.</li>
+                    <li>Fortalecer los semilleros de investigación en la UPTC.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass">
+        <div class="footer-info">
+            <p><strong>GECOS - Inducción 2026</strong></p>
+            <p>Universidad Pedagógica y Tecnológica de Colombia</p>
+            <p>Facultad de Ciencias / Escuela de Ciencias Biológicas</p>
+        </div>
+        <p>&copy; 2026 Grupo de Investigación GECOS. Innovación y Excelencia.</p>
+    </footer>
+
+    <script>
+        // Animación de aparición suave
+        const observerOptions = { threshold: 0.1 };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .event-item').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html> 
